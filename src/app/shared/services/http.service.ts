@@ -7,8 +7,8 @@ import { environment } from '../../../environments/environment';
     providedIn: 'root',
 })
 export class HttpService {
-    private readonly httpClient = inject(HttpClient);
-    private readonly apiUrl = environment.apiUrl;
+    readonly #httpClient = inject(HttpClient);
+    readonly #apiUrl = environment.apiUrl;
 
     /**
      * Generic HTTP GET request
@@ -17,7 +17,7 @@ export class HttpService {
      * @returns Observable of the response
      */
     get<T>(endpoint: string, params?: { [param: string]: string | number | boolean }): Observable<T> {
-        return this.httpClient.get<T>(this.buildUrl(endpoint), {
+        return this.#httpClient.get<T>(this.buildUrl(endpoint), {
             params: this.buildParams(params),
         });
     }
@@ -34,7 +34,7 @@ export class HttpService {
         body: T,
         params?: { [param: string]: string | number | boolean }
     ): Observable<R> {
-        return this.httpClient.post<R>(this.buildUrl(endpoint), body, {
+        return this.#httpClient.post<R>(this.buildUrl(endpoint), body, {
             params: this.buildParams(params),
         });
     }
@@ -51,7 +51,7 @@ export class HttpService {
         body: T,
         params?: { [param: string]: string | number | boolean }
     ): Observable<R> {
-        return this.httpClient.put<R>(this.buildUrl(endpoint), body, {
+        return this.#httpClient.put<R>(this.buildUrl(endpoint), body, {
             params: this.buildParams(params),
         });
     }
@@ -63,7 +63,7 @@ export class HttpService {
      * @returns Observable of the response
      */
     delete<T>(endpoint: string, params?: { [param: string]: string | number | boolean }): Observable<T> {
-        return this.httpClient.delete<T>(this.buildUrl(endpoint), {
+        return this.#httpClient.delete<T>(this.buildUrl(endpoint), {
             params: this.buildParams(params),
         });
     }
@@ -74,7 +74,7 @@ export class HttpService {
      * @returns Full URL
      */
     private buildUrl(endpoint: string): string {
-        return `${this.apiUrl}/${endpoint}`;
+        return `${this.#apiUrl}/${endpoint}`;
     }
 
     /**
