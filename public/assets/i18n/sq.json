@@ -1,0 +1,20 @@
+{
+    "AUTHENTICATION": {
+        "login": "Identifikohu",
+        "signup": "Regjistrohu",
+        "username": "Emri i përdoruesit",
+        "password": "Fjalëkalimi",
+        "confirm_password": "Konfirmo fjalëkalimin",
+        "hide_password": "Fshih fjalëkalimin",
+        "show_password": "Shfaq fjalëkalimin",
+        "confirm_password_match_error": "Fjalëkalimet duhet të jenë të njëjtë. ",
+        "no_account": "Nuk keni një llogari?",
+        "existing_account": "Keni një llogari?",
+        "not_valid_email": "Vendosni një email të vlefshëm",
+        "confirm_password_required": "Konfirmimi i fjalëkalimit është i kërkuar.",
+        "password_complexity": "Fjalëkalimi duhet të ketë të paktën 8 karaktere, të përmbajë një shkronjë të madhe, një numër dhe një karakter të veçantë!"
+    },
+    "GENERAL": {
+        "is_required": " është i/e kërkuar"
+    }
+}

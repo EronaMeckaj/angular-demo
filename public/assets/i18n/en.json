@@ -1,0 +1,20 @@
+{
+    "AUTHENTICATION": {
+        "login": "Login",
+        "signup": "Signup",
+        "username": "Username",
+        "password": "Password",
+        "confirm_password": "Confirm password",
+        "hide_password": "Hide password",
+        "show_password": "Show password",
+        "confirm_password_match_error": "Passwords must match.",
+        "no_account": "Don't have an account?",
+        "existing_account": "Already have an account?",
+        "not_valid_email": "Please enter a valid email",
+        "confirm_password_required": "Confirm password is required",
+        "password_complexity": "Password must be at least 8 characters long, include an uppercase letter, a number, and a special character!"
+    },
+    "GENERAL": {
+        "is_required": " is required"
+    }
+}

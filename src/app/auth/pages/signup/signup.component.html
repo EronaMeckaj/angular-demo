@@ -2,67 +2,71 @@
     <mat-card class="signup-card">
         <mat-card-header class="d-flex justify-content-center pb-3">
             <mat-card-title>
-                <h2>Signup</h2>
+                <h2>{{"AUTHENTICATION.signup" | translate}}</h2>
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="signUpForm">
                 <mat-form-field appearance="fill" class="w-100 form-field">
-                    <mat-label>Email</mat-label>
+                    <mat-label>{{"AUTHENTICATION.username" | translate}}</mat-label>
                     <input matInput type="email" formControlName="username" />
                     <mat-icon matSuffix>email</mat-icon>
                     @if(signUpForm.get('username')?.hasError('required')){
                     <mat-error>
-                        Email është i kërkuar!
+                        {{"AUTHENTICATION.username" | translate}} {{"GENERAL.is_required" | translate}}
                     </mat-error>
                     }
                     @if(signUpForm.get('username')?.hasError('email')){
                     <mat-error>
-                        Vendosni një email të vlefshëm! </mat-error>
+                        {{"AUTHENTICATION.not_valid_email" | translate}} </mat-error>
                     }
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="w-100 form-field">
-                    <mat-label>Password</mat-label>
+                    <mat-label>{{"AUTHENTICATION.password" | translate}}</mat-label>
                     <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
                         [matTooltip]="getPasswordTooltip()"
                         [matTooltipDisabled]="!signUpForm.get('password')?.touched || !signUpForm.get('password')?.hasError('passwordComplexity')" />
-                    <mat-icon matSuffix (click)="hidePassword = !hidePassword" class="cursor-pointer">{{hidePassword ?
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword" class="cursor-pointer"
+                        [matTooltip]="hidePassword ? ('AUTHENTICATION.show_password' | translate) : ('AUTHENTICATION.hide_password' | translate)">{{hidePassword
+                        ?
                         'visibility_off' :
                         'visibility'}}</mat-icon>
                     @if(signUpForm.get('password')?.hasError('required')){
                     <mat-error>
-                        Fjalëkalimi është i kërkuar! </mat-error>
+                        {{"AUTHENTICATION.password" | translate}} {{"GENERAL.is_required" | translate}}
+                    </mat-error>
                     }
                     @if(signUpForm.get('password')!.touched &&
                     signUpForm.get('password')!.hasError('passwordComplexity')){
-                    <mat-error>Fjalëkalimi nuk është i vlefshëm!</mat-error>
+                    <mat-error>{{"AUTHENTICATION.not_valid_email" | translate}}</mat-error>
                     }
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="w-100 form-field">
-                    <mat-label>Confirm password</mat-label>
-                    <input matInput [type]="confirmPassword ? 'password' : 'text'" formControlName="confirmPassword" />
-                    <mat-icon matSuffix (click)="confirmPassword = !confirmPassword"
-                        class="cursor-pointer">{{confirmPassword ?
+                    <mat-label>{{"AUTHENTICATION.confirm_password" | translate}}</mat-label>
+                    <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" />
+                    <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" class="cursor-pointer"
+                        [matTooltip]="hideConfirmPassword ? ('AUTHENTICATION.show_password' | translate) : ('AUTHENTICATION.hide_password' | translate)">{{hideConfirmPassword
+                        ?
                         'visibility_off' :
                         'visibility'}}</mat-icon>
                     @if(signUpForm.get('confirmPassword')?.hasError('required')){
                     <mat-error>
-                        Konfirmimi i fjalëkalimit është i kërkuar!
+                        {{"AUTHENTICATION.confirm_password_required" | translate}}
                     </mat-error>
                     }
                     @if(signUpForm.get('confirmPassword')!.touched &&
                     signUpForm.get('confirmPassword')?.errors?.['passwordsMismatch']){
-                    <mat-error>Fjalëkalimet nuk përputhen!</mat-error>
+                    <mat-error> {{"AUTHENTICATION.confirm_password_match_error" | translate}}</mat-error>
                     }
                 </mat-form-field>
                 <button mat-raised-button color="primary" class="w-100 mt-3" (click)="signUp()">
-                    Signup
+                    {{"AUTHENTICATION.signup" | translate}}
                 </button>
             </form>
             <div class="text-center mt-4">
-                <a class="forgot-password-link">Already have an account?
+                <a class="forgot-password-link">{{"AUTHENTICATION.existing_account" | translate}}
                     <span routerLink="/login" class="cursor-pointer"><b
-                            class="text-decoration-underline">Login</b></span></a>
+                            class="text-decoration-underline">{{"AUTHENTICATION.login" | translate}}</b></span></a>
             </div>
         </mat-card-content>
     </mat-card>

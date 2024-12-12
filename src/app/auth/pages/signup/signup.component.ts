@@ -10,6 +10,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { RouterLink } from '@angular/router';
 import { PasswordValidator } from '../validators/password.validator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -23,15 +24,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     CommonModule,
     RouterLink,
-    MatTooltipModule
+    MatTooltipModule,
+    TranslatePipe
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
   readonly #authService = inject(AuthService);
+  readonly #translateService = inject(TranslateService);
+
   hidePassword: boolean = true;
-  confirmPassword: boolean = true;
+  hideConfirmPassword: boolean = true;
   readonly signUpForm = new FormGroup(
     {
       username: new FormControl(null, [Validators.required, Validators.email]),
@@ -48,7 +52,7 @@ export class SignupComponent {
   getPasswordTooltip(): string {
     const passwordControl = this.signUpForm.get('password');
     if (passwordControl?.touched && passwordControl?.hasError('passwordComplexity')) {
-      return 'Fjalëkalimi duhet të ketë të paktën 8 karaktere, të përmbajë një shkronjë të madhe, një numër dhe një karakter të veçantë!';
+      return this.#translateService.instant('AUTHENTICATION.password_complexity');
     }
     return '';
   }

@@ -8,6 +8,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,9 @@ import { RouterLink } from '@angular/router';
     MatInputModule,
     ReactiveFormsModule,
     CommonModule,
-    RouterLink
+    RouterLink,
+    TranslatePipe,
+    MatTooltipModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
