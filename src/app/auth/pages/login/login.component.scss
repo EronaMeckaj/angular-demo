@@ -27,5 +27,9 @@
         ::ng-deep .mat-mdc-form-field-error-wrapper {
             padding: 0 !important;
         }
+
+        .cursor-pointer:hover {
+            cursor: pointer;
+        }
     }
 }

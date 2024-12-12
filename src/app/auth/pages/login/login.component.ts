@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,15 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   readonly #authService = inject(AuthService);
+  hidePassword: boolean = true;
   readonly loginForm = new FormGroup({
     username: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [
