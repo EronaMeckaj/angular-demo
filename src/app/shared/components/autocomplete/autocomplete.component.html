@@ -1,0 +1,15 @@
+<mat-form-field [appearance]="autocompleteConfig.appearance" [class]="autocompleteConfig.inputClass" class="w-100">
+    <mat-label>{{autocompleteConfig.label}}</mat-label>
+    <input type="text" [placeholder]="autocompleteConfig.placeholder!" [attr.aria-label]="autocompleteConfig.label"
+        matInput [formControl]="control" [matAutocomplete]="auto">
+    @if(control.value){
+    <button mat-icon-button matSuffix aria-label="Clear" (click)="clearInput()">
+        <mat-icon>clear</mat-icon>
+    </button>
+    }
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredOptions$ | async; track option) {
+        <mat-option [value]="option">{{option.label}}</mat-option>
+        }
+    </mat-autocomplete>
+</mat-form-field>

@@ -8,7 +8,7 @@
         }
         @for (option of options$ | async; track option) {
         <mat-option [value]="option.value">
-            {{ option.key }}
+            {{ option.label }}
         </mat-option>
         }
     </mat-select>

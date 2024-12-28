@@ -9,6 +9,7 @@ export interface IFormField {
     label?: string;
     value?: any;
     name: string;
+    placeholder?: string;
     containerClass?: string | string[];
     inputClass?: string | string[];
     options?: IOption[] | Observable<IOption[]>;

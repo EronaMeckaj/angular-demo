@@ -30,6 +30,17 @@ export class HomeComponent {
 
   filtersConfig: IFormField[] = [
     {
+      name: 'test',
+      controlType: ControlType.autocomplete,
+      label: 'Search',
+      containerClass: 'col-3',
+      options: of([
+        { value: 'steak-0', label: 'Steak' },
+        { value: 'pizza-1', label: 'Pizza' },
+        { value: 'tacos-2', label: 'Tacos' },
+      ]),
+    },
+    {
       name: 'date1',
       controlType: ControlType.datePicker,
       label: 'Enter a date',
@@ -64,9 +75,9 @@ export class HomeComponent {
       multiselect: true,
       selectAll: true,
       options: of([
-        { value: 'steak-0', key: 'Steak' },
-        { value: 'pizza-1', key: 'Pizza' },
-        { value: 'tacos-2', key: 'Tacos' },
+        { value: 'steak-0', label: 'Steak' },
+        { value: 'pizza-1', label: 'Pizza' },
+        { value: 'tacos-2', label: 'Tacos' },
       ]),
     },
     {
@@ -77,14 +88,15 @@ export class HomeComponent {
       multiselect: false,
       disabled: true,
       options: of([
-        { value: 'water-0', key: 'Water' },
-        { value: 'juice-1', key: 'Juice' },
-        { value: 'soda-2', key: 'Soda' },
+        { value: 'water-0', label: 'Water' },
+        { value: 'juice-1', label: 'Juice' },
+        { value: 'soda-2', label: 'Soda' },
       ]),
     },
   ];
 
   editData = {
+    test: 'steak-0',
     date1: new Date('2023-12-01'),
     date: { startDate: new Date('2023-12-01'), endDate: new Date('2023-12-10') },
     datasetName: 'Dataset Example',

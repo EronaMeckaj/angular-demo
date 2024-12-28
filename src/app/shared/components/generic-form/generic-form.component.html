@@ -18,6 +18,10 @@
                 <app-date-range [dateRangeConfig]="input"
                     [control]="genericForm.get(input.name) | formGroup"></app-date-range>
                 }
+                @case (controlType.autocomplete) {
+                <app-autocomplete [autocompleteConfig]="input"
+                    [control]="genericForm.get(input.name) | formControl"></app-autocomplete>
+                }
                 }
             </div>
             }

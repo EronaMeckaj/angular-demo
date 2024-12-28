@@ -24,6 +24,7 @@ import { IFormField } from '../../models/i-form-field.interface';
 import { DateRangeComponent } from "../date-range/date-range.component";
 import { FormGroupPipe } from '../../pipes/form-group.pipe';
 import { DatePickerComponent } from '../datepicker/datepicker.component';
+import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
 
 @Component({
   selector: 'app-generic-form',
@@ -40,8 +41,9 @@ import { DatePickerComponent } from '../datepicker/datepicker.component';
     FormControlPipe,
     DateRangeComponent,
     FormGroupPipe,
-    DatePickerComponent
-  ],
+    DatePickerComponent,
+    AutocompleteComponent
+],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
 })
