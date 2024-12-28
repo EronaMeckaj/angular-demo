@@ -70,7 +70,7 @@ export class GenericFormComponent implements OnInit {
   private createControl(input: any): any {
     switch (input.controlType) {
       case ControlType.dateRange:
-        return this.createFormGroup(input);
+        return this.createFormGroupForDateRange(input);
       default:
         return this.createFormControl(input);
     }
@@ -89,14 +89,15 @@ export class GenericFormComponent implements OnInit {
     return new FormControl(initialValue, input.validators || []);
   }
 
-  private createFormGroup(input: any): FormGroup {
+  private createFormGroupForDateRange(input: any): FormGroup {
     const startDate = this.editData?.[input.name]?.startDate || input.value?.startDate || null;
     const endDate = this.editData?.[input.name]?.endDate || input.value?.endDate || null;
 
     return this.#formBuilder.group({
-      [input.startControlName]: [startDate, input.validators?.startDate || []],
-      [input.endControlName]: [endDate, input.validators?.endDate || []],
+      [input.startControlName]: [startDate],
+      [input.endControlName]: [endDate],
     });
+
   }
 
   onSubmit() {
