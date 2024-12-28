@@ -20,7 +20,8 @@ export interface IFormField {
     requiredLabel?: string;
     searchEnabled?: boolean;
     appearance?: any;
-    enableSearchIcon?: boolean;
+    enableSuffixIcon?: boolean;
+    suffixIcon?: string;
     startDatePlaceholder?: string;
     endDatePlaceholder?: string;
     hint?: string;
