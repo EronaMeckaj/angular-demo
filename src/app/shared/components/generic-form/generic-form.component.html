@@ -1,0 +1,28 @@
+@if(genericForm){
+<form [formGroup]="genericForm">
+    <div class="container-fluid">
+        <div class="row">
+            @for (input of dataSource; track idx; let idx = $index) {
+            <div [ngClass]="input.containerClass ? input.containerClass : 'col-12 mb-3'">
+                @switch (input?.controlType) {
+                @case (controlType.text) {
+                <app-text [textConfig]="input" [control]="genericForm.get(input.name) | formControl"></app-text>
+                }
+                }
+                @if(genericForm.controls[input.name] &&
+                genericForm.controls[input.name].invalid &&
+                genericForm.controls[input.name].touched){
+                <div class="form-text text-danger mb-3 mt-n2">
+                    {{ getErrorMessage(input.name, input) | translate }}
+                </div>
+                }
+            </div>
+            }
+        </div>
+    </div>
+    <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">
+        <mat-icon>save</mat-icon>
+        Save
+    </button>
+</form>
+}
