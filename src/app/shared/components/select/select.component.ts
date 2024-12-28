@@ -17,7 +17,6 @@ import { IFormField } from '../../models/i-form-field.interface';
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     CommonModule,

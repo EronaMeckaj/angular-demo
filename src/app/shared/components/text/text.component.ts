@@ -10,7 +10,6 @@ import { IFormField } from '../../models/i-form-field.interface';
   selector: 'app-text',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss'],
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatIconModule,

@@ -8,7 +8,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-date-range',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,

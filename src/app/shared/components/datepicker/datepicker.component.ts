@@ -7,7 +7,6 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-datepicker',
-  standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
     ReactiveFormsModule,

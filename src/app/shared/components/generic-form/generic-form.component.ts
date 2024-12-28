@@ -27,7 +27,6 @@ import { DatePickerComponent } from '../datepicker/datepicker.component';
 
 @Component({
   selector: 'app-generic-form',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
