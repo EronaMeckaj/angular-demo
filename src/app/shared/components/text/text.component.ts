@@ -23,15 +23,16 @@ export class TextComponent {
   @Output() valueChange = new EventEmitter<any>();
   @Input() control: FormControl = new FormControl('');
 
-  emitChange(): void {
-    this.valueChange.emit({
-      name: this.textConfig?.name,
-      value: this.control.value,
+  ngOnInit(): void {
+    this.control.valueChanges.subscribe(value => {
+      this.valueChange.emit({
+        name: this.textConfig?.name,
+        value: value,
+      });
     });
   }
 
   clearSearch(): void {
     this.control.setValue('');
-    this.emitChange();
   }
 }
