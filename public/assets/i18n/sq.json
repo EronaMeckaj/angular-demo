@@ -11,6 +11,7 @@
         "no_account": "Nuk keni një llogari?",
         "existing_account": "Keni një llogari?",
         "not_valid_email": "Vendosni një email të vlefshëm",
+        "not_valid_password": "Vendosni një fjalëkalim të vlefshëm",
         "confirm_password_required": "Konfirmimi i fjalëkalimit është i kërkuar.",
         "password_complexity": "Fjalëkalimi duhet të ketë të paktën 8 karaktere, të përmbajë një shkronjë të madhe, një numër dhe një karakter të veçantë!"
     },

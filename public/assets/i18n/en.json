@@ -11,6 +11,7 @@
         "no_account": "Don't have an account?",
         "existing_account": "Already have an account?",
         "not_valid_email": "Please enter a valid email",
+        "not_valid_password": "Please enter a valid password",
         "confirm_password_required": "Confirm password is required",
         "password_complexity": "Password must be at least 8 characters long, include an uppercase letter, a number, and a special character!"
     },
