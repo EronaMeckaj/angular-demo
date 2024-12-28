@@ -14,7 +14,7 @@
             <span>Home Page</span>
         </mat-toolbar>
         <div class="main-content">
-            <router-outlet></router-outlet>
+            <app-generic-form [dataSource]="filtersConfig" [editData]="editData"></app-generic-form>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

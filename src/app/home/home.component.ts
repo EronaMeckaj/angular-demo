@@ -5,8 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { RouterOutlet } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
+import { GenericFormComponent } from "../shared/components/generic-form/generic-form.component";
+import { ControlType } from '../shared/enums/control-type.enum';
+import { IFormField } from '../shared/models/i-form-field.interface';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +20,57 @@ import { AuthService } from '../core/services/auth.service';
     MatButtonModule,
     MatCardModule,
     MatListModule,
-    RouterOutlet
+    GenericFormComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   readonly #authService = inject(AuthService)
+
+  filtersConfig: IFormField[] = [
+    {
+      name: 'datasetName',
+      controlType: ControlType.text,
+      enableSuffixIcon: true,
+      suffixIcon: "search",
+      label: 'Name',
+      containerClass: 'col-3',
+      appearance: 'fill',
+    },
+    {
+      name: 'databaseId',
+      label: 'Database',
+      containerClass: 'col-md-3',
+      controlType: ControlType.select,
+      multiselect: true,
+      selectAll: true,
+      options: of([
+        { value: 'steak-0', key: 'Steak' },
+        { value: 'pizza-1', key: 'Pizza' },
+        { value: 'tacos-2', key: 'Tacos' },
+      ]),
+    },
+    {
+      name: 'chartType',
+      label: 'Favorite Drink',
+      containerClass: 'col-3',
+      controlType: ControlType.select,
+      multiselect: false,
+      disabled: true,
+      options: of([
+        { value: 'water-0', key: 'Water' },
+        { value: 'juice-1', key: 'Juice' },
+        { value: 'soda-2', key: 'Soda' },
+      ]),
+    },
+  ];
+
+  editData = {
+    datasetName: 'Dataset Example',
+    databaseId: ['steak-0', 'pizza-1', 'tacos-2'],
+    chartType: 'juice-1',
+  };
 
   logout(): void {
     this.#authService.logout()

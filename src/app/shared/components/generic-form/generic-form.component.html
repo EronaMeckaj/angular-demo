@@ -1,4 +1,3 @@
-@if(genericForm){
 <form [formGroup]="genericForm">
     <div class="container-fluid">
         <div class="row">
@@ -8,13 +7,9 @@
                 @case (controlType.text) {
                 <app-text [textConfig]="input" [control]="genericForm.get(input.name) | formControl"></app-text>
                 }
+                @case (controlType.select) {
+                <app-select [selectConfig]="input" [control]="genericForm.get(input.name) | formControl"></app-select>
                 }
-                @if(genericForm.controls[input.name] &&
-                genericForm.controls[input.name].invalid &&
-                genericForm.controls[input.name].touched){
-                <div class="form-text text-danger mb-3 mt-n2">
-                    {{ getErrorMessage(input.name, input) | translate }}
-                </div>
                 }
             </div>
             }
@@ -25,4 +20,3 @@
         Save
     </button>
 </form>
-}

@@ -1,0 +1,15 @@
+<mat-form-field [appearance]="selectConfig.appearance" [class]="selectConfig.inputClass" class="w-100">
+    <mat-label>{{ selectConfig.label }}</mat-label>
+    <mat-select [formControl]="control" [multiple]="selectConfig.multiselect">
+        @if(selectConfig.selectAll && selectConfig.multiselect){
+        <mat-checkbox [checked]="isAllSelected$ | async" (change)="toggleAllSelection($event.checked)">
+            Select All
+        </mat-checkbox>
+        }
+        @for (option of options$ | async; track option) {
+        <mat-option [value]="option.value">
+            {{ option.key }}
+        </mat-option>
+        }
+    </mat-select>
+</mat-form-field>
