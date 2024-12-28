@@ -30,6 +30,17 @@ export class HomeComponent {
 
   filtersConfig: IFormField[] = [
     {
+      name: 'date',
+      controlType: ControlType.dateRange,
+      label: 'Enter a date range',
+      startDatePlaceholder: 'Start date',
+      endDatePlaceholder: 'End date',
+      hint: 'MM/DD/YYYY – MM/DD/YYYY',
+      containerClass: 'col-3',
+      startControlName: 'startDate',
+      endControlName: 'endDate',
+    },
+    {
       name: 'datasetName',
       controlType: ControlType.text,
       enableSuffixIcon: true,
@@ -67,6 +78,7 @@ export class HomeComponent {
   ];
 
   editData = {
+    date: { startDate: new Date('2023-12-01'), endDate: new Date('2023-12-10') },
     datasetName: 'Dataset Example',
     databaseId: ['steak-0', 'pizza-1', 'tacos-2'],
     chartType: 'juice-1',

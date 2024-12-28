@@ -10,6 +10,10 @@
                 @case (controlType.select) {
                 <app-select [selectConfig]="input" [control]="genericForm.get(input.name) | formControl"></app-select>
                 }
+                @case (controlType.dateRange) {
+                <app-date-range [dateRangeConfig]="input"
+                    [control]="genericForm.get(input.name) | formGroup"></app-date-range>
+                }
                 }
             </div>
             }

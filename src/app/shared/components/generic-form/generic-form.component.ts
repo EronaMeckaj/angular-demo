@@ -21,6 +21,8 @@ import { ControlType } from '../../enums/control-type.enum';
 import { FormControlPipe } from '../../pipes/form-control.pipe';
 import { SelectComponent } from '../select/select.component';
 import { IFormField } from '../../models/i-form-field.interface';
+import { DateRangeComponent } from "../date-range/date-range.component";
+import { FormGroupPipe } from '../../pipes/form-group.pipe';
 
 @Component({
   selector: 'app-generic-form',
@@ -36,6 +38,8 @@ import { IFormField } from '../../models/i-form-field.interface';
     TranslateModule,
     TextComponent,
     FormControlPipe,
+    DateRangeComponent,
+    FormGroupPipe
   ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
@@ -55,12 +59,21 @@ export class GenericFormComponent implements OnInit {
 
   private initializeForm() {
     const formGroupConfig = this.dataSource.reduce((acc, input) => {
-      acc[input.name] = this.createFormControl(input);
+      acc[input.name] = this.createControl(input);
       return acc;
     }, {} as { [key: string]: any });
     this.genericForm = this.#formBuilder.group(formGroupConfig);
+    console.log(this.genericForm, "this.genericForm")
   }
 
+  private createControl(input: any): any {
+    switch (input.controlType) {
+      case ControlType.dateRange:
+        return this.createFormGroup(input);
+      default:
+        return this.createFormControl(input);
+    }
+  }
 
   private createFormControl(input: any): FormControl {
     let initialValue: any;
@@ -73,6 +86,16 @@ export class GenericFormComponent implements OnInit {
       initialValue = this.editData?.[input.name] || input.value || '';
     }
     return new FormControl(initialValue, input.validators || []);
+  }
+
+  private createFormGroup(input: any): FormGroup {
+    const startDate = this.editData?.[input.name]?.startDate || input.value?.startDate || null;
+    const endDate = this.editData?.[input.name]?.endDate || input.value?.endDate || null;
+
+    return this.#formBuilder.group({
+      [input.startControlName]: [startDate, input.validators?.startDate || []],
+      [input.endControlName]: [endDate, input.validators?.endDate || []],
+    });
   }
 
   onSubmit() {
