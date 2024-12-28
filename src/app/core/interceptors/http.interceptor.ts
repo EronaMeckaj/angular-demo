@@ -10,15 +10,13 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
     spinnerService.show();
 
-    let clonedRequest = req;
-
-    if (authService.isLoggedIn()) {
-        clonedRequest = req.clone({
+    const clonedRequest = authService.isLoggedIn()
+        ? req.clone({
             setHeaders: {
                 Authorization: `Bearer ${authService.getToken()}`,
             },
-        });
-    }
+        })
+        : req;
 
     return next(clonedRequest).pipe(
         catchError((error: HttpErrorResponse) => {
