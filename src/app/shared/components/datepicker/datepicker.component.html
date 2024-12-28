@@ -1,0 +1,9 @@
+<mat-form-field [class]="datePickerConfig.inputClass" class="w-100">
+    <mat-label>{{datePickerConfig.label}}</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="control">
+    @if(datePickerConfig.hint){
+    <mat-hint>{{datePickerConfig.hint}}</mat-hint>
+    }
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

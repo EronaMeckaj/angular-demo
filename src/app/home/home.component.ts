@@ -30,6 +30,13 @@ export class HomeComponent {
 
   filtersConfig: IFormField[] = [
     {
+      name: 'date1',
+      controlType: ControlType.datePicker,
+      label: 'Enter a date',
+      hint: 'MM/DD/YYYY',
+      containerClass: 'col-3',
+    },
+    {
       name: 'date',
       controlType: ControlType.dateRange,
       label: 'Enter a date range',
@@ -78,6 +85,7 @@ export class HomeComponent {
   ];
 
   editData = {
+    date1: new Date('2023-12-01'),
     date: { startDate: new Date('2023-12-01'), endDate: new Date('2023-12-10') },
     datasetName: 'Dataset Example',
     databaseId: ['steak-0', 'pizza-1', 'tacos-2'],

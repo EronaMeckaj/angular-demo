@@ -3,7 +3,7 @@ export enum ControlType {
   select,
   checkbox,
   radio,
-  date,
+  datePicker,
   autocomplete,
   dateRange,
 }

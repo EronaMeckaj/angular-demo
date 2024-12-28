@@ -23,6 +23,7 @@ import { SelectComponent } from '../select/select.component';
 import { IFormField } from '../../models/i-form-field.interface';
 import { DateRangeComponent } from "../date-range/date-range.component";
 import { FormGroupPipe } from '../../pipes/form-group.pipe';
+import { DatePickerComponent } from '../datepicker/datepicker.component';
 
 @Component({
   selector: 'app-generic-form',
@@ -39,7 +40,8 @@ import { FormGroupPipe } from '../../pipes/form-group.pipe';
     TextComponent,
     FormControlPipe,
     DateRangeComponent,
-    FormGroupPipe
+    FormGroupPipe,
+    DatePickerComponent
   ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
