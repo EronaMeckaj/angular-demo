@@ -4,6 +4,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { IFormField } from '../../models/i-form-field.interface';
 
 @Component({
   selector: 'app-datepicker',
@@ -18,6 +19,6 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './datepicker.component.scss',
 })
 export class DatePickerComponent {
-  @Input() datePickerConfig: any;
+  @Input() datePickerConfig!: IFormField;
   @Input() control: FormControl = new FormControl(null);
 }

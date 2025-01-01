@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { IFormField } from '../../models/i-form-field.interface';
 
 @Component({
   selector: 'app-date-range',
@@ -20,6 +21,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './date-range.component.scss',
 })
 export class DateRangeComponent {
-  @Input() dateRangeConfig: any;
+  @Input() dateRangeConfig!: IFormField;
   @Input() control: FormGroup = new FormGroup({});
 }
