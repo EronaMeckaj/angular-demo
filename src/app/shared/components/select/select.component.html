@@ -1,4 +1,4 @@
-<mat-form-field [appearance]="selectConfig.appearance" [class]="selectConfig.inputClass" class="w-100">
+<mat-form-field [appearance]="selectConfig.appearance" [class]="selectConfig.inputClass">
     <mat-label>{{ selectConfig.label }}</mat-label>
     <mat-select [formControl]="control" [multiple]="selectConfig.multiselect">
         @if(selectConfig.selectAll && selectConfig.multiselect){
@@ -12,4 +12,7 @@
         </mat-option>
         }
     </mat-select>
+    @if (selectConfig.hint) {
+    <mat-hint>{{selectConfig.hint}}</mat-hint>
+    }
 </mat-form-field>

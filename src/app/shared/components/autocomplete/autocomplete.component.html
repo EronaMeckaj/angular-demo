@@ -1,4 +1,4 @@
-<mat-form-field [appearance]="autocompleteConfig.appearance" [class]="autocompleteConfig.inputClass" class="w-100">
+<mat-form-field [appearance]="autocompleteConfig.appearance" [class]="autocompleteConfig.inputClass">
     <mat-label>{{autocompleteConfig.label}}</mat-label>
     <input type="text" [placeholder]="autocompleteConfig.placeholder!" [attr.aria-label]="autocompleteConfig.label"
         matInput [formControl]="control" [matAutocomplete]="auto">
@@ -12,4 +12,7 @@
         <mat-option [value]="option">{{option.label}}</mat-option>
         }
     </mat-autocomplete>
+    @if (autocompleteConfig.hint) {
+    <mat-hint>{{autocompleteConfig.hint}}</mat-hint>
+    }
 </mat-form-field>
