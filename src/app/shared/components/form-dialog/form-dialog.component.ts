@@ -16,8 +16,22 @@ import { GenericFormComponent } from '../generic-form/generic-form.component';
     MatIconModule,
     GenericFormComponent,
   ],
-  templateUrl: './form-dialog.component.html',
-  styleUrl: './form-dialog.component.scss'
+  template: `
+    <h2 mat-dialog-title>{{ dialogData.title }}</h2>
+    <mat-dialog-content class="mat-typography">
+      <app-generic-form
+        [dataSource]="dialogData.formModel"
+        [editData]="dialogData.editData"
+        [showButtons]="dialogData.showFormButtons"
+      ></app-generic-form>
+    </mat-dialog-content>
+    @if(!dialogData.showFormButtons){
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="onSubmit()">Save</button>
+    </mat-dialog-actions>
+    }
+  `,
 })
 export class FormDialogComponent {
   readonly dialogData = inject(MAT_DIALOG_DATA);
