@@ -20,7 +20,7 @@ import { of } from 'rxjs';
     MatButtonModule,
     MatCardModule,
     MatListModule,
-    GenericFormComponent
+    GenericFormComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -33,7 +33,6 @@ export class HomeComponent {
       name: 'test',
       controlType: ControlType.autocomplete,
       label: 'Search',
-      containerClass: 'col-3',
       options: of([
         { value: 'steak-0', label: 'Steak' },
         { value: 'pizza-1', label: 'Pizza' },
@@ -41,11 +40,20 @@ export class HomeComponent {
       ]),
     },
     {
+      name: 'roleIds',
+      controlType: ControlType.autocompleteMultiselect,
+      label: 'Zgjidh Rolin',
+      options: of([
+        { value: 1, label: 'Admin' },
+        { value: 2, label: 'Editor' },
+        { value: 3, label: 'Viewer' },
+      ]),
+    },
+    {
       name: 'date1',
       controlType: ControlType.datePicker,
       label: 'Enter a date',
       hint: 'MM/DD/YYYY',
-      containerClass: 'col-3',
     },
     {
       name: 'date',
@@ -54,7 +62,6 @@ export class HomeComponent {
       startDatePlaceholder: 'Start date',
       endDatePlaceholder: 'End date',
       hint: 'MM/DD/YYYY – MM/DD/YYYY',
-      containerClass: 'col-3',
       startControlName: 'startDate',
       endControlName: 'endDate',
     },
@@ -64,13 +71,11 @@ export class HomeComponent {
       enableSuffixIcon: true,
       suffixIcon: "search",
       label: 'Name',
-      containerClass: 'col-3',
       appearance: 'fill',
     },
     {
       name: 'databaseId',
       label: 'Database',
-      containerClass: 'col-md-3',
       controlType: ControlType.select,
       multiselect: true,
       selectAll: true,
@@ -97,12 +102,25 @@ export class HomeComponent {
 
   editData = {
     test: 'steak-0',
+    roleIds: [
+      { value: 1, label: 'Admin' },
+      { value: 2, label: 'Editor' }
+    ],
     date1: new Date('2023-12-01'),
     date: { startDate: new Date('2023-12-01'), endDate: new Date('2023-12-10') },
     datasetName: 'Dataset Example',
     databaseId: ['steak-0', 'pizza-1', 'tacos-2'],
     chartType: 'juice-1',
   };
+
+
+  onRolesChanged(newSelection: any[]): void {
+    console.log('Roles changed:', newSelection);
+  }
+
+  onRoleRemoved(removedRole: any): void {
+    console.log('Role removed:', removedRole);
+  }
 
   logout(): void {
     this.#authService.logout()

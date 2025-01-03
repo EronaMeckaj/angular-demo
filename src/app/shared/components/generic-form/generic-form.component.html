@@ -22,6 +22,10 @@
                 <app-autocomplete [autocompleteConfig]="input"
                     [control]="genericForm.get(input.name) | formControl"></app-autocomplete>
                 }
+                @case (controlType.autocompleteMultiselect) {
+                <app-autocomplete-multiselect [autocompleteMultiselectConfig]="input"
+                    [control]="genericForm.get(input.name) | formControl"></app-autocomplete-multiselect>
+                }
                 }
             </div>
             }

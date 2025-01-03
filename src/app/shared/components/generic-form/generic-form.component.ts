@@ -25,6 +25,7 @@ import { DateRangeComponent } from "../date-range/date-range.component";
 import { FormGroupPipe } from '../../pipes/form-group.pipe';
 import { DatePickerComponent } from '../datepicker/datepicker.component';
 import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
+import { AutocompleteMultiselectComponent } from '../autocomplete-multiselect/autocomplete-multiselect.component';
 
 @Component({
   selector: 'app-generic-form',
@@ -42,8 +43,9 @@ import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
     DateRangeComponent,
     FormGroupPipe,
     DatePickerComponent,
-    AutocompleteComponent
-],
+    AutocompleteComponent,
+    AutocompleteMultiselectComponent
+  ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
 })
@@ -66,7 +68,7 @@ export class GenericFormComponent implements OnInit {
       return acc;
     }, {} as { [key: string]: any });
     this.genericForm = this.#formBuilder.group(formGroupConfig);
-    console.log(this.genericForm, "this.genericForm")
+    console.log(this.genericForm, "testtt")
   }
 
   private createControl(input: any): any {
@@ -80,7 +82,7 @@ export class GenericFormComponent implements OnInit {
 
   private createFormControl(input: any): FormControl {
     let initialValue: any;
-    if (input.controlType === this.controlType.select && input.multiselect) {
+    if ((input.controlType === this.controlType.select && input.multiselect) || input.controlType === this.controlType.autocompleteMultiselect) {
       initialValue = this.editData?.[input.name] || input.value || [];
       if (!Array.isArray(initialValue)) {
         initialValue = [initialValue];

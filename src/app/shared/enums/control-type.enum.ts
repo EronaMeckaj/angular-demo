@@ -5,5 +5,6 @@ export enum ControlType {
   radio,
   datePicker,
   autocomplete,
+  autocompleteMultiselect,
   dateRange,
 }

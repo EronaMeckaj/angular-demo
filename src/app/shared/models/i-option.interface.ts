@@ -1,4 +1,5 @@
 export interface IOption {
   label: string;
-  value: string;
+  value: string | number;
+  disabled?: boolean;
 }
