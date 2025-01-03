@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,8 +21,6 @@ import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-autocomplete-multiselect',
-  templateUrl: './autocomplete-multiselect.component.html',
-  styleUrls: ['./autocomplete-multiselect.component.scss'],
   imports: [
     AsyncPipe,
     FormsModule,
@@ -30,15 +31,51 @@ import { GenericService } from '../../services/generic.service';
     MatInputModule,
     MatIconModule,
     MatOptionModule,
-    MatCheckboxModule
-  ]
+    MatCheckboxModule,
+  ],
+  template: `
+    <mat-form-field [class]="input.inputClass" class="w-100">
+      <mat-label>{{ input.label }}</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Selection">
+        @for (selectedOption of selectedOptions; track selectedOption) {
+        <mat-chip-row (removed)="remove(selectedOption)">
+          {{ selectedOption.label }}
+          <button matChipRemove [attr.aria-label]="'remove ' + selectedOption">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input
+        [placeholder]="input.placeholder || ''"
+        [formControl]="control"
+        [matChipInputFor]="chipGrid"
+        [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selected($event)"
+      >
+        @for (option of filteredOptions$ | async; let idx = $index; track idx; )
+        {
+        <mat-option [value]="option" [disabled]="option.disabled">{{
+          option.label
+        }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  `,
 })
 export class AutocompleteMultiselectComponent implements OnInit {
   announcer = inject(LiveAnnouncer);
-  readonly #genericService = inject(GenericService)
+  readonly #genericService = inject(GenericService);
 
   @Input() input!: IFormField;
-  @Input() control: FormControl<IOption[] | null> = new FormControl<IOption[] | null>([]);
+  @Input() control: FormControl<IOption[] | null> = new FormControl<
+    IOption[] | null
+  >([]);
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredOptions$!: Observable<IOption[]>;
@@ -46,7 +83,9 @@ export class AutocompleteMultiselectComponent implements OnInit {
   options$!: Observable<IOption[]>;
 
   ngOnInit() {
-    this.options$ = this.#genericService.getOptionsObservable(this.input.options)
+    this.options$ = this.#genericService.getOptionsObservable(
+      this.input.options
+    );
     this.selectedOptions = this.control.value || [];
     this.filteredOptions$ = this.control.valueChanges.pipe(
       startWith(this.selectedOptions),
@@ -84,7 +123,10 @@ export class AutocompleteMultiselectComponent implements OnInit {
     event.option.deselect();
   }
 
-  private _filter(options: IOption[], selectedOptions: IOption[] | IOption | null): IOption[] {
+  private _filter(
+    options: IOption[],
+    selectedOptions: IOption[] | IOption | null
+  ): IOption[] {
     if (!selectedOptions) {
       return options;
     }
@@ -92,12 +134,13 @@ export class AutocompleteMultiselectComponent implements OnInit {
     const selectedArray = Array.isArray(selectedOptions)
       ? selectedOptions
       : [selectedOptions];
-    const selectedValues = selectedArray.map(option => option.label.toLowerCase());
+    const selectedValues = selectedArray.map((option) =>
+      option.label.toLowerCase()
+    );
 
-    return options.map(option => ({
+    return options.map((option) => ({
       ...option,
       disabled: selectedValues.includes(option.label.toLowerCase()),
     }));
   }
-
 }

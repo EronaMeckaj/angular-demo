@@ -8,8 +8,6 @@ import { IFormField } from '../../models/i-form-field.interface';
 
 @Component({
   selector: 'app-text',
-  templateUrl: './text.component.html',
-  styleUrls: ['./text.component.scss'],
   imports: [
     ReactiveFormsModule,
     MatIconModule,
@@ -17,6 +15,30 @@ import { IFormField } from '../../models/i-form-field.interface';
     MatInputModule,
     MatButtonModule,
   ],
+  template: `
+    <mat-form-field
+      [appearance]="input.appearance"
+      [class]="input.inputClass"
+      class="w-100"
+    >
+      <mat-label>{{ input.label }}</mat-label>
+      <input
+        matInput
+        [placeholder]="input.label || ''"
+        [formControl]="control"
+        [name]="input.name"
+        type="text"
+        [readonly]="input.readonly"
+      />
+      @if (input.hint) {
+      <mat-hint>{{ input.hint }}</mat-hint>
+      } @if(input.enableSuffixIcon && !control.value){
+      <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
+      } @if(!input.readonly && control.value){
+      <mat-icon matSuffix (click)="clearSearch()">close</mat-icon>
+      }
+    </mat-form-field>
+  `,
 })
 export class TextComponent {
   @Input() input!: IFormField;

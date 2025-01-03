@@ -6,13 +6,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-checkbox',
-  imports: [
-    MatCheckboxModule,
-    MatFormFieldModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './checkbox.component.html',
-  styleUrl: './checkbox.component.scss'
+  imports: [MatCheckboxModule, MatFormFieldModule, ReactiveFormsModule],
+  template: `
+    <mat-checkbox [class]="input.inputClass" [formControl]="control">
+      {{ input.label }}</mat-checkbox
+    >
+    @if (input.hint) {
+    <mat-hint>{{ input.hint }}</mat-hint>
+    }
+  `,
 })
 export class CheckboxComponent {
   @Input() input!: IFormField;

@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,8 +12,6 @@ import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -26,9 +19,35 @@ import { GenericService } from '../../services/generic.service';
     MatSelectModule,
     MatCheckboxModule,
   ],
+  template: `
+    <mat-form-field
+      [appearance]="input.appearance"
+      [class]="input.inputClass"
+      class="w-100"
+    >
+      <mat-label>{{ input.label }}</mat-label>
+      <mat-select [formControl]="control" [multiple]="input.multiselect">
+        @if(input.selectAll && input.multiselect){
+        <mat-checkbox
+          [checked]="isAllSelected$ | async"
+          (change)="toggleAllSelection($event.checked)"
+        >
+          Select All
+        </mat-checkbox>
+        } @for (option of options$ | async; track option) {
+        <mat-option [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+        }
+      </mat-select>
+      @if (input.hint) {
+      <mat-hint>{{ input.hint }}</mat-hint>
+      }
+    </mat-form-field>
+  `,
 })
 export class SelectComponent implements OnInit {
-  readonly #genericService = inject(GenericService)
+  readonly #genericService = inject(GenericService);
 
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
@@ -41,7 +60,9 @@ export class SelectComponent implements OnInit {
   }
 
   private setupObservables(): void {
-    this.options$ = this.#genericService.getOptionsObservable(this.input.options).pipe(shareReplay(1));
+    this.options$ = this.#genericService
+      .getOptionsObservable(this.input.options)
+      .pipe(shareReplay(1));
 
     this.isAllSelected$ = combineLatest([
       this.control.valueChanges.pipe(startWith(this.control.value || [])),

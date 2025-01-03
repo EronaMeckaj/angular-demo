@@ -4,7 +4,14 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { Observable, startWith, map, BehaviorSubject, switchMap, of } from 'rxjs';
+import {
+  Observable,
+  startWith,
+  map,
+  BehaviorSubject,
+  switchMap,
+  of,
+} from 'rxjs';
 import { IFormField } from '../../models/i-form-field.interface';
 import { IOption } from '../../models/i-option.interface';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,13 +28,46 @@ import { GenericService } from '../../services/generic.service';
     ReactiveFormsModule,
     AsyncPipe,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss']
+  template: `
+    <mat-form-field
+      [appearance]="input.appearance"
+      [class]="input.inputClass"
+      class="w-100"
+    >
+      <mat-label>{{ input.label }}</mat-label>
+      <input
+        type="text"
+        [placeholder]="input.placeholder!"
+        [attr.aria-label]="input.label"
+        matInput
+        [formControl]="control"
+        [matAutocomplete]="auto"
+      />
+      @if(control.value){
+      <button
+        mat-icon-button
+        matSuffix
+        aria-label="Clear"
+        (click)="clearInput()"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+      }
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredOptions$ | async; track option) {
+        <mat-option [value]="option">{{ option.label }}</mat-option>
+        }
+      </mat-autocomplete>
+      @if (input.hint) {
+      <mat-hint>{{ input.hint }}</mat-hint>
+      }
+    </mat-form-field>
+  `,
 })
 export class AutocompleteComponent implements OnInit {
-  readonly #genericService = inject(GenericService)
+  readonly #genericService = inject(GenericService);
   @Input() input!: IFormField;
   @Input() control = new FormControl<string | IOption>('');
   filteredOptions$!: Observable<IOption[]>;
@@ -35,15 +75,19 @@ export class AutocompleteComponent implements OnInit {
   options$!: Observable<IOption[]>;
 
   ngOnInit() {
-    this.options$ = this.#genericService.getOptionsObservable(this.input.options)
+    this.options$ = this.#genericService.getOptionsObservable(
+      this.input.options
+    );
 
     this.filteredOptions$ = this.control.valueChanges.pipe(
       startWith(this.control.value || ''),
-      switchMap(value => {
+      switchMap((value) => {
         return this.options$.pipe(
-          map(options => {
+          map((options) => {
             if (typeof value === 'string') {
-              const defaultOption = options.find(option => option.value === value);
+              const defaultOption = options.find(
+                (option) => option.value === value
+              );
               if (defaultOption) {
                 this.control.setValue(defaultOption, { emitEvent: false });
               }
@@ -58,7 +102,9 @@ export class AutocompleteComponent implements OnInit {
 
   private _filter(name: string, options: IOption[]): IOption[] {
     const filterValue = name.toLowerCase();
-    return options.filter(option => option.label.toLowerCase().includes(filterValue));
+    return options.filter((option) =>
+      option.label.toLowerCase().includes(filterValue)
+    );
   }
 
   displayFn(option: IOption): string {
