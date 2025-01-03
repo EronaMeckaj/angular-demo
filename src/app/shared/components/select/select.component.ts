@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +13,7 @@ import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, startWith, shareReplay, take } from 'rxjs/operators';
 import { IOption } from '../../models/i-option.interface';
 import { IFormField } from '../../models/i-form-field.interface';
+import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-select',
@@ -26,6 +28,8 @@ import { IFormField } from '../../models/i-form-field.interface';
   ],
 })
 export class SelectComponent implements OnInit {
+  readonly #genericService = inject(GenericService)
+
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 
@@ -37,7 +41,7 @@ export class SelectComponent implements OnInit {
   }
 
   private setupObservables(): void {
-    this.options$ = this.getOptionsObservable().pipe(shareReplay(1));
+    this.options$ = this.#genericService.getOptionsObservable(this.input.options).pipe(shareReplay(1));
 
     this.isAllSelected$ = combineLatest([
       this.control.valueChanges.pipe(startWith(this.control.value || [])),
@@ -59,13 +63,6 @@ export class SelectComponent implements OnInit {
       .subscribe((filteredValues) => {
         this.control.setValue(filteredValues, { emitEvent: false });
       });
-  }
-
-  private getOptionsObservable(): Observable<IOption[]> {
-    const options = this.input?.options;
-    return options instanceof Observable
-      ? options.pipe(map((data) => data || []))
-      : new BehaviorSubject(options || []).asObservable();
   }
 
   private getFilteredValue(value: any, options: IOption[]): any {

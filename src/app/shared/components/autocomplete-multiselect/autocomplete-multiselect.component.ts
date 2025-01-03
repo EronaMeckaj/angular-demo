@@ -14,6 +14,7 @@ import { IOption } from '../../models/i-option.interface';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AsyncPipe } from '@angular/common';
+import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-autocomplete-multiselect',
@@ -34,6 +35,8 @@ import { AsyncPipe } from '@angular/common';
 })
 export class AutocompleteMultiselectComponent implements OnInit {
   announcer = inject(LiveAnnouncer);
+  readonly #genericService = inject(GenericService)
+
   @Input() input!: IFormField;
   @Input() control: FormControl<IOption[] | null> = new FormControl<IOption[] | null>([]);
 
@@ -43,7 +46,7 @@ export class AutocompleteMultiselectComponent implements OnInit {
   options$!: Observable<IOption[]>;
 
   ngOnInit() {
-    this.options$ = this.getOptionsObservable();
+    this.options$ = this.#genericService.getOptionsObservable(this.input.options)
     this.selectedOptions = this.control.value || [];
     this.filteredOptions$ = this.control.valueChanges.pipe(
       startWith(this.selectedOptions),
@@ -53,12 +56,6 @@ export class AutocompleteMultiselectComponent implements OnInit {
         )
       )
     );
-  }
-  private getOptionsObservable(): Observable<IOption[]> {
-    const options = this.input?.options;
-    return options instanceof Observable
-      ? options.pipe(map((data) => data || []))
-      : new BehaviorSubject<IOption[]>(options || []).asObservable();
   }
 
   add(event: MatChipInputEvent): void {

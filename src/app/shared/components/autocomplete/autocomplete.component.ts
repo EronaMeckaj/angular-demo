@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +9,7 @@ import { IFormField } from '../../models/i-form-field.interface';
 import { IOption } from '../../models/i-option.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-autocomplete',
@@ -26,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent implements OnInit {
+  readonly #genericService = inject(GenericService)
   @Input() input!: IFormField;
   @Input() control = new FormControl<string | IOption>('');
   filteredOptions$!: Observable<IOption[]>;
@@ -33,7 +35,7 @@ export class AutocompleteComponent implements OnInit {
   options$!: Observable<IOption[]>;
 
   ngOnInit() {
-    this.options$ = this.getOptionsObservable()
+    this.options$ = this.#genericService.getOptionsObservable(this.input.options)
 
     this.filteredOptions$ = this.control.valueChanges.pipe(
       startWith(this.control.value || ''),
@@ -52,13 +54,6 @@ export class AutocompleteComponent implements OnInit {
         );
       })
     );
-  }
-
-  private getOptionsObservable(): Observable<IOption[]> {
-    const options = this.input?.options;
-    return options instanceof Observable
-      ? options.pipe(map((data) => data || []))
-      : new BehaviorSubject<IOption[]>(options || []).asObservable();
   }
 
   private _filter(name: string, options: IOption[]): IOption[] {
