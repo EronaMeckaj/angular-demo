@@ -3,4 +3,5 @@ export interface IDialogData<T = any> {
     title?: string;
     editData?: T;
     showFormButtons?: boolean;
+    message?: string;
 }

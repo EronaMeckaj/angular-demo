@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { FormDialogComponent } from '../shared/components/form-dialog/form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogData } from '../shared/models/i-dialog-data.interface';
+import { InformationDialogComponent } from '../shared/components/information-dialog/information-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -122,20 +123,18 @@ export class HomeComponent {
     checkboxTest: true
   };
 
-  
+
   logout(): void {
     this.#authService.logout()
   }
 
   openDialog(): void {
     const dialogData: IDialogData = {
-      formModel: this.filtersConfig,
       title: 'Filter Settings',
-      showFormButtons: false,
-      editData: this.editData
+      message: "Are you sure you want to delete this?"
     };
 
-    const dialogRef = this.#dialog.open(FormDialogComponent, {
+    const dialogRef = this.#dialog.open(InformationDialogComponent, {
       data: dialogData,
       autoFocus: false,
     });
