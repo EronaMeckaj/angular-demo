@@ -6,10 +6,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../core/services/auth.service';
-import { GenericFormComponent } from "../shared/components/generic-form/generic-form.component";
 import { ControlType } from '../shared/enums/control-type.enum';
 import { IFormField } from '../shared/models/i-form-field.interface';
 import { of } from 'rxjs';
+import { FormDialogComponent } from '../shared/components/form-dialog/form-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { IDialogData } from '../shared/models/i-dialog-data.interface';
 
 @Component({
   selector: 'app-home',
@@ -20,13 +22,13 @@ import { of } from 'rxjs';
     MatButtonModule,
     MatCardModule,
     MatListModule,
-    GenericFormComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   readonly #authService = inject(AuthService)
+  readonly #dialog = inject(MatDialog)
 
   filtersConfig: IFormField[] = [
     {
@@ -120,16 +122,30 @@ export class HomeComponent {
     checkboxTest: true
   };
 
-
-  onRolesChanged(newSelection: any[]): void {
-    console.log('Roles changed:', newSelection);
-  }
-
-  onRoleRemoved(removedRole: any): void {
-    console.log('Role removed:', removedRole);
-  }
-
+  
   logout(): void {
     this.#authService.logout()
+  }
+
+  openDialog(): void {
+    const dialogData: IDialogData = {
+      formModel: this.filtersConfig,
+      title: 'Filter Settings',
+      showFormButtons: false,
+      editData: this.editData
+    };
+
+    const dialogRef = this.#dialog.open(FormDialogComponent, {
+      data: dialogData,
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Dialog result:', result);
+      } else {
+        console.log('Dialog was closed without a result.');
+      }
+    });
   }
 }

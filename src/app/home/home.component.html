@@ -14,7 +14,8 @@
             <span>Home Page</span>
         </mat-toolbar>
         <div class="main-content">
-            <app-generic-form [dataSource]="filtersConfig" [editData]="editData"></app-generic-form>
+            <button mat-button (click)="openDialog()">Open Dialog</button>
+            <!-- <app-generic-form [dataSource]="filtersConfig" [editData]="editData" [buttons]="buttons"></app-generic-form> -->
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
