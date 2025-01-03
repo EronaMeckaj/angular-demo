@@ -1,42 +1,42 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { IFormField } from '../../models/i-form-field.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { IFormField } from '../../models/i-form-field.interface';
 
 @Component({
-  selector: 'app-text-area',
+  selector: 'app-number',
   imports: [
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
   ],
   template: `
-    <mat-form-field [class]="input.inputClass" class="w-100">
-      <mat-label>{{ input.label }}</mat-label>
-      <textarea
+    <mat-form-field [class]="input.inputClass">
+      <mat-label> {{ input.label }} </mat-label>
+      <input
         matInput
-        [placeholder]="input.label || ''"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         [formControl]="control"
-        [name]="input.name"
-        type="text"
         [readonly]="input.readonly"
-      ></textarea>
-      @if (input.hint) {
-      <mat-hint>{{ input.hint }}</mat-hint>
-      } @if(input.enableSuffixIcon && !control.value){
+      />
+      @if (input.enableSuffixIcon && !control.value) {
       <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
-      } @if(!input.readonly && control.value){
+      } @if (input.hint) {
+      <mat-hint>{{ input.hint }}</mat-hint>
+      } @if (!input.readonly && control.value) {
       <mat-icon matSuffix (click)="clearInput()">close</mat-icon>
       }
     </mat-form-field>
   `,
 })
-export class TextAreaComponent {
+export class NumberComponent {
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 

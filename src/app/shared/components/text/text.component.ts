@@ -35,7 +35,7 @@ import { IFormField } from '../../models/i-form-field.interface';
       } @if(input.enableSuffixIcon && !control.value){
       <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
       } @if(!input.readonly && control.value){
-      <mat-icon matSuffix (click)="clearSearch()">close</mat-icon>
+      <mat-icon matSuffix (click)="clearInput()">close</mat-icon>
       }
     </mat-form-field>
   `,
@@ -44,7 +44,7 @@ export class TextComponent {
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 
-  clearSearch(): void {
+  clearInput(): void {
     this.control.setValue('');
   }
 }

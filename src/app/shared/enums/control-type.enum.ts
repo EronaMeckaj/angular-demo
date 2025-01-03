@@ -1,6 +1,7 @@
 export enum ControlType {
   text,
   textArea,
+  number,
   select,
   checkbox,
   radio,

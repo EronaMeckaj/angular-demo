@@ -12,6 +12,9 @@
                 @case (controlType.textArea) {
                 <app-text-area [input]="input" [control]="control"></app-text-area>
                 }
+                @case (controlType.number) {
+                <app-number [input]="input" [control]="control"></app-number>
+                }
                 @case (controlType.select) {
                 <app-select [input]="input" [control]="control"></app-select>
                 }

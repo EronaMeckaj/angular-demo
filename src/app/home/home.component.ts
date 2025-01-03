@@ -117,6 +117,12 @@ export class HomeComponent {
       label: 'Name',
       appearance: 'fill',
     },
+    {
+      name: 'numerType',
+      controlType: ControlType.number,
+      label: 'Number type',
+      appearance: 'fill',
+    },
   ];
 
   editData = {
@@ -135,6 +141,7 @@ export class HomeComponent {
     chartType: 'juice-1',
     checkboxTest: true,
     textArea: 'sgdygeryhdrthuty',
+    numerType: 467,
   };
 
   logout(): void {

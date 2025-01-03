@@ -23,6 +23,7 @@ import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { AutocompleteMultiselectComponent } from '../autocomplete-multiselect/autocomplete-multiselect.component';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
+import { NumberComponent } from '../number/number.component';
 
 @Component({
   selector: 'app-generic-form',
@@ -44,6 +45,7 @@ import { TextAreaComponent } from '../text-area/text-area.component';
     AutocompleteMultiselectComponent,
     CheckboxComponent,
     TextAreaComponent,
+    NumberComponent,
   ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
