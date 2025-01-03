@@ -26,6 +26,7 @@ import { FormGroupPipe } from '../../pipes/form-group.pipe';
 import { DatePickerComponent } from '../datepicker/datepicker.component';
 import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
 import { AutocompleteMultiselectComponent } from '../autocomplete-multiselect/autocomplete-multiselect.component';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'app-generic-form',
@@ -44,7 +45,8 @@ import { AutocompleteMultiselectComponent } from '../autocomplete-multiselect/au
     FormGroupPipe,
     DatePickerComponent,
     AutocompleteComponent,
-    AutocompleteMultiselectComponent
+    AutocompleteMultiselectComponent,
+    CheckboxComponent
   ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',

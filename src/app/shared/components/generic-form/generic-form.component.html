@@ -26,6 +26,10 @@
                 <app-autocomplete-multiselect [autocompleteMultiselectConfig]="input"
                     [control]="genericForm.get(input.name) | formControl"></app-autocomplete-multiselect>
                 }
+                @case (controlType.checkbox) {
+                <app-checkbox [checkboxConfig]="input"
+                    [control]="genericForm.get(input.name) | formControl"></app-checkbox>
+                }
                 }
             </div>
             }

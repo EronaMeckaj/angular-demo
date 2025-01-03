@@ -98,6 +98,12 @@ export class HomeComponent {
         { value: 'soda-2', label: 'Soda' },
       ]),
     },
+    {
+      name: 'checkboxTest',
+      controlType: ControlType.checkbox,
+      label: 'Name',
+      appearance: 'fill',
+    },
   ];
 
   editData = {
@@ -111,6 +117,7 @@ export class HomeComponent {
     datasetName: 'Dataset Example',
     databaseId: ['steak-0', 'pizza-1', 'tacos-2'],
     chartType: 'juice-1',
+    checkboxTest: true
   };
 
 
