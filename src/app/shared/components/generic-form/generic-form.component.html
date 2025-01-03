@@ -32,8 +32,20 @@
             }
         </div>
     </div>
-    <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">
-        <mat-icon>save</mat-icon>
-        Save
-    </button>
+    @if(showButtons){
+    <div class="d-flex align-items-center my-3 justify-content-end">
+        @if (showCancelButton) {
+        <button mat-raised-button color="warn" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+            {{cancelButtonText}}
+        </button>
+        }
+        @if (showSubmitButton) {
+        <button mat-raised-button type="submit" color="primary" [disabled]="!genericForm.valid" (click)="onSubmit()">
+            <mat-icon>save</mat-icon>
+            {{submitButtonText}}
+        </button>
+        }
+    </div>
+    }
 </form>

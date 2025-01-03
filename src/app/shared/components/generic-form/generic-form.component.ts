@@ -55,6 +55,13 @@ export class GenericFormComponent implements OnInit {
   readonly #formBuilder = inject(FormBuilder);
   @Input() dataSource: IFormField[] = [];
   @Input() editData: any;
+  @Input() showButtons: boolean = true;
+  @Input() showCancelButton: boolean = true;
+  @Input() showSubmitButton: boolean = true;
+  @Input() cancelButtonText: string = 'Cancel';
+  @Input() submitButtonText: string = 'Save';
+
+
   genericForm!: FormGroup;
   controlType: typeof ControlType = ControlType;
 
@@ -70,7 +77,6 @@ export class GenericFormComponent implements OnInit {
       return acc;
     }, {} as { [key: string]: any });
     this.genericForm = this.#formBuilder.group(formGroupConfig);
-    console.log(this.genericForm, "testtt")
   }
 
   private createControl(input: any): any {
@@ -104,6 +110,10 @@ export class GenericFormComponent implements OnInit {
       [input.endControlName]: [endDate],
     });
 
+  }
+
+  getFormData() {
+    return this.genericForm.valid ? this.genericForm.value : null;
   }
 
   onSubmit() {
