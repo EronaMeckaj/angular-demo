@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { IFormField } from '../../models/i-form-field.interface';
+import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-datepicker',
@@ -16,6 +17,7 @@ import { IFormField } from '../../models/i-form-field.interface';
     MatDatepickerModule,
   ],
   template: `
+    @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass" class="w-100">
       <mat-label>{{ input.label }}</mat-label>
       <input matInput [matDatepicker]="picker" [formControl]="control" />
@@ -27,10 +29,14 @@ import { IFormField } from '../../models/i-form-field.interface';
         [for]="picker"
       ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      @if(errorMessage){
+      <mat-error>{{ errorMessage }}</mat-error>
+      }
     </mat-form-field>
   `,
 })
 export class DatePickerComponent {
+  readonly genericService = inject(GenericService);
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl(null);
 }

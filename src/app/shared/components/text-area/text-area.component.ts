@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { IFormField } from '../../models/i-form-field.interface';
+import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-text-area',
@@ -16,6 +17,7 @@ import { IFormField } from '../../models/i-form-field.interface';
     ReactiveFormsModule,
   ],
   template: `
+    @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass" class="w-100">
       <mat-label>{{ input.label }}</mat-label>
       <textarea
@@ -32,11 +34,14 @@ import { IFormField } from '../../models/i-form-field.interface';
       <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
       } @if(!input.readonly && control.value){
       <mat-icon matSuffix (click)="clearInput()">close</mat-icon>
+      } @if(errorMessage){
+      <mat-error>{{ errorMessage }}</mat-error>
       }
     </mat-form-field>
   `,
 })
 export class TextAreaComponent {
+  readonly genericService = inject(GenericService);
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 

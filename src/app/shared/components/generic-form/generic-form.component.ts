@@ -108,10 +108,12 @@ export class GenericFormComponent implements OnInit {
     const endDate =
       this.editData?.[input.name]?.endDate || input.value?.endDate || null;
 
-    return this.#formBuilder.group({
-      [input.startControlName]: [startDate],
-      [input.endControlName]: [endDate],
-    });
+    return this.#formBuilder.group(
+      {
+        [input.startControlName]: [startDate, input.startDateValidators || []],
+        [input.endControlName]: [endDate, input.endDateValidators || []],
+      }
+    );
   }
 
   getFormData() {

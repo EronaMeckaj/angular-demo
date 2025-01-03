@@ -20,6 +20,7 @@ import { GenericService } from '../../services/generic.service';
     MatCheckboxModule,
   ],
   template: `
+    @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field
       [appearance]="input.appearance"
       [class]="input.inputClass"
@@ -42,12 +43,14 @@ import { GenericService } from '../../services/generic.service';
       </mat-select>
       @if (input.hint) {
       <mat-hint>{{ input.hint }}</mat-hint>
+      } @if(errorMessage){
+      <mat-error>{{ errorMessage }}</mat-error>
       }
     </mat-form-field>
   `,
 })
 export class SelectComponent implements OnInit {
-  readonly #genericService = inject(GenericService);
+  readonly genericService = inject(GenericService);
 
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
@@ -60,7 +63,7 @@ export class SelectComponent implements OnInit {
   }
 
   private setupObservables(): void {
-    this.options$ = this.#genericService
+    this.options$ = this.genericService
       .getOptionsObservable(this.input.options)
       .pipe(shareReplay(1));
 

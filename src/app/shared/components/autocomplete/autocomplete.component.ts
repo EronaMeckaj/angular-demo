@@ -31,6 +31,7 @@ import { GenericService } from '../../services/generic.service';
     MatButtonModule,
   ],
   template: `
+    @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field
       [appearance]="input.appearance"
       [class]="input.inputClass"
@@ -62,12 +63,14 @@ import { GenericService } from '../../services/generic.service';
       </mat-autocomplete>
       @if (input.hint) {
       <mat-hint>{{ input.hint }}</mat-hint>
+      } @if(errorMessage){
+      <mat-error>{{ errorMessage }}</mat-error>
       }
     </mat-form-field>
   `,
 })
 export class AutocompleteComponent implements OnInit {
-  readonly #genericService = inject(GenericService);
+  readonly genericService = inject(GenericService);
   @Input() input!: IFormField;
   @Input() control = new FormControl<string | IOption>('');
   filteredOptions$!: Observable<IOption[]>;
@@ -75,7 +78,7 @@ export class AutocompleteComponent implements OnInit {
   options$!: Observable<IOption[]>;
 
   ngOnInit() {
-    this.options$ = this.#genericService.getOptionsObservable(
+    this.options$ = this.genericService.getOptionsObservable(
       this.input.options
     );
 

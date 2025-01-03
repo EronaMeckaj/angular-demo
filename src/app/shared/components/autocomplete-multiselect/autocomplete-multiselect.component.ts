@@ -34,6 +34,7 @@ import { GenericService } from '../../services/generic.service';
     MatCheckboxModule,
   ],
   template: `
+    @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass" class="w-100">
       <mat-label>{{ input.label }}</mat-label>
       <mat-chip-grid #chipGrid aria-label="Selection">
@@ -65,12 +66,15 @@ import { GenericService } from '../../services/generic.service';
         }}</mat-option>
         }
       </mat-autocomplete>
+      @if(errorMessage){
+      <mat-error>{{ errorMessage }}</mat-error>
+      }
     </mat-form-field>
   `,
 })
 export class AutocompleteMultiselectComponent implements OnInit {
   announcer = inject(LiveAnnouncer);
-  readonly #genericService = inject(GenericService);
+  readonly genericService = inject(GenericService);
 
   @Input() input!: IFormField;
   @Input() control: FormControl<IOption[] | null> = new FormControl<
@@ -83,7 +87,7 @@ export class AutocompleteMultiselectComponent implements OnInit {
   options$!: Observable<IOption[]>;
 
   ngOnInit() {
-    this.options$ = this.#genericService.getOptionsObservable(
+    this.options$ = this.genericService.getOptionsObservable(
       this.input.options
     );
     this.selectedOptions = this.control.value || [];

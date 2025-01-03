@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { IFormField } from '../../models/i-form-field.interface';
+import { GenericService } from '../../services/generic.service';
 
 @Component({
   selector: 'app-text',
@@ -16,6 +17,7 @@ import { IFormField } from '../../models/i-form-field.interface';
     MatButtonModule,
   ],
   template: `
+    @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field
       [appearance]="input.appearance"
       [class]="input.inputClass"
@@ -36,11 +38,14 @@ import { IFormField } from '../../models/i-form-field.interface';
       <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
       } @if(!input.readonly && control.value){
       <mat-icon matSuffix (click)="clearInput()">close</mat-icon>
+      } @if(errorMessage){
+      <mat-error>{{ errorMessage }}</mat-error>
       }
     </mat-form-field>
   `,
 })
 export class TextComponent {
+  readonly genericService = inject(GenericService);
   @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 

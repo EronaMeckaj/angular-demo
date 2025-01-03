@@ -9,11 +9,11 @@ import { AuthService } from '../core/services/auth.service';
 import { ControlType } from '../shared/enums/control-type.enum';
 import { IFormField } from '../shared/models/i-form-field.interface';
 import { of } from 'rxjs';
-import { FormDialogComponent } from '../shared/components/form-dialog/form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogData } from '../shared/models/i-dialog-data.interface';
 import { InformationDialogComponent } from '../shared/components/information-dialog/information-dialog.component';
 import { GenericFormComponent } from '../shared/components/generic-form/generic-form.component';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +37,7 @@ export class HomeComponent {
     {
       name: 'test',
       controlType: ControlType.autocomplete,
+      validators: [Validators.required],
       label: 'Search',
       options: of([
         { value: 'steak-0', label: 'Steak' },
@@ -47,6 +48,7 @@ export class HomeComponent {
     {
       name: 'roleIds',
       controlType: ControlType.autocompleteMultiselect,
+      validators: [Validators.required],
       label: 'Zgjidh Rolin',
       options: of([
         { value: 1, label: 'Admin' },
@@ -57,6 +59,7 @@ export class HomeComponent {
     {
       name: 'date1',
       controlType: ControlType.datePicker,
+      validators: [Validators.required],
       label: 'Enter a date',
       hint: 'MM/DD/YYYY',
     },
@@ -73,6 +76,7 @@ export class HomeComponent {
     {
       name: 'datasetName',
       controlType: ControlType.text,
+      validators: [Validators.required],
       enableSuffixIcon: true,
       suffixIcon: 'search',
       label: 'Name',
@@ -81,6 +85,7 @@ export class HomeComponent {
     {
       name: 'textArea',
       controlType: ControlType.textArea,
+      validators: [Validators.required],
       enableSuffixIcon: true,
       suffixIcon: 'search',
       label: 'Name',
@@ -90,6 +95,7 @@ export class HomeComponent {
       name: 'databaseId',
       label: 'Database',
       controlType: ControlType.select,
+      validators: [Validators.required],
       multiselect: true,
       selectAll: true,
       options: of([
@@ -103,6 +109,7 @@ export class HomeComponent {
       label: 'Favorite Drink',
       containerClass: 'col-3',
       controlType: ControlType.select,
+      validators: [Validators.required],
       multiselect: false,
       disabled: true,
       options: of([
@@ -114,35 +121,18 @@ export class HomeComponent {
     {
       name: 'checkboxTest',
       controlType: ControlType.checkbox,
+      validators: [Validators.required],
       label: 'Name',
       appearance: 'fill',
     },
     {
       name: 'numerType',
       controlType: ControlType.number,
+      validators: [Validators.required],
       label: 'Number type',
       appearance: 'fill',
     },
   ];
-
-  editData = {
-    test: 'steak-0',
-    roleIds: [
-      { value: 1, label: 'Admin' },
-      { value: 2, label: 'Editor' },
-    ],
-    date1: new Date('2023-12-01'),
-    date: {
-      startDate: new Date('2023-12-01'),
-      endDate: new Date('2023-12-10'),
-    },
-    datasetName: 'Dataset Example',
-    databaseId: ['steak-0', 'pizza-1', 'tacos-2'],
-    chartType: 'juice-1',
-    checkboxTest: true,
-    textArea: 'sgdygeryhdrthuty',
-    numerType: 467,
-  };
 
   logout(): void {
     this.#authService.logout();
