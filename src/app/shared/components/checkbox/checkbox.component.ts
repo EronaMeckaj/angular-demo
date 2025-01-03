@@ -15,6 +15,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './checkbox.component.scss'
 })
 export class CheckboxComponent {
-  @Input() checkboxConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 }

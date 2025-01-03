@@ -19,6 +19,6 @@ import { IFormField } from '../../models/i-form-field.interface';
   styleUrl: './datepicker.component.scss',
 })
 export class DatePickerComponent {
-  @Input() datePickerConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl(null);
 }

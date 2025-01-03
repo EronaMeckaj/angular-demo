@@ -19,7 +19,7 @@ import { IFormField } from '../../models/i-form-field.interface';
   ],
 })
 export class TextComponent {
-  @Input() textConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 
   clearSearch(): void {

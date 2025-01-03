@@ -34,7 +34,7 @@ import { AsyncPipe } from '@angular/common';
 })
 export class AutocompleteMultiselectComponent implements OnInit {
   announcer = inject(LiveAnnouncer);
-  @Input() autocompleteMultiselectConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control: FormControl<IOption[] | null> = new FormControl<IOption[] | null>([]);
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -55,7 +55,7 @@ export class AutocompleteMultiselectComponent implements OnInit {
     );
   }
   private getOptionsObservable(): Observable<IOption[]> {
-    const options = this.autocompleteMultiselectConfig?.options;
+    const options = this.input?.options;
     return options instanceof Observable
       ? options.pipe(map((data) => data || []))
       : new BehaviorSubject<IOption[]>(options || []).asObservable();

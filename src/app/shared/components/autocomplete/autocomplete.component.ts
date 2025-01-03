@@ -26,7 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent implements OnInit {
-  @Input() autocompleteConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control = new FormControl<string | IOption>('');
   filteredOptions$!: Observable<IOption[]>;
 
@@ -55,7 +55,7 @@ export class AutocompleteComponent implements OnInit {
   }
 
   private getOptionsObservable(): Observable<IOption[]> {
-    const options = this.autocompleteConfig?.options;
+    const options = this.input?.options;
     return options instanceof Observable
       ? options.pipe(map((data) => data || []))
       : new BehaviorSubject<IOption[]>(options || []).asObservable();

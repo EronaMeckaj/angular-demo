@@ -26,7 +26,7 @@ import { IFormField } from '../../models/i-form-field.interface';
   ],
 })
 export class SelectComponent implements OnInit {
-  @Input() selectConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control: FormControl = new FormControl('');
 
   options$: Observable<IOption[]> = new BehaviorSubject<IOption[]>([]);
@@ -62,14 +62,14 @@ export class SelectComponent implements OnInit {
   }
 
   private getOptionsObservable(): Observable<IOption[]> {
-    const options = this.selectConfig?.options;
+    const options = this.input?.options;
     return options instanceof Observable
       ? options.pipe(map((data) => data || []))
       : new BehaviorSubject(options || []).asObservable();
   }
 
   private getFilteredValue(value: any, options: IOption[]): any {
-    const isMultiSelect = this.selectConfig?.multiselect;
+    const isMultiSelect = this.input?.multiselect;
 
     if (isMultiSelect) {
       const currentValue = Array.isArray(value) ? value : [];

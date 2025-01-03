@@ -2,33 +2,30 @@
     <div class="container-fluid">
         <div class="row">
             @for (input of dataSource; track idx; let idx = $index) {
+            @let control = genericForm.get(input.name) | formControl;
+
             <div [ngClass]="input.containerClass ? input.containerClass : 'col-12 mb-3'">
                 @switch (input?.controlType) {
                 @case (controlType.text) {
-                <app-text [textConfig]="input" [control]="genericForm.get(input.name) | formControl"></app-text>
+                <app-text [input]="input" [control]="control"></app-text>
                 }
                 @case (controlType.select) {
-                <app-select [selectConfig]="input" [control]="genericForm.get(input.name) | formControl"></app-select>
+                <app-select [input]="input" [control]="control"></app-select>
                 }
                 @case (controlType.datePicker) {
-                <app-datepicker [datePickerConfig]="input"
-                    [control]="genericForm.get(input.name) | formControl"></app-datepicker>
+                <app-datepicker [input]="input" [control]="control"></app-datepicker>
                 }
                 @case (controlType.dateRange) {
-                <app-date-range [dateRangeConfig]="input"
-                    [control]="genericForm.get(input.name) | formGroup"></app-date-range>
+                <app-date-range [input]="input" [control]="genericForm.get(input.name) | formGroup"></app-date-range>
                 }
                 @case (controlType.autocomplete) {
-                <app-autocomplete [autocompleteConfig]="input"
-                    [control]="genericForm.get(input.name) | formControl"></app-autocomplete>
+                <app-autocomplete [input]="input" [control]="control"></app-autocomplete>
                 }
                 @case (controlType.autocompleteMultiselect) {
-                <app-autocomplete-multiselect [autocompleteMultiselectConfig]="input"
-                    [control]="genericForm.get(input.name) | formControl"></app-autocomplete-multiselect>
+                <app-autocomplete-multiselect [input]="input" [control]="control"></app-autocomplete-multiselect>
                 }
                 @case (controlType.checkbox) {
-                <app-checkbox [checkboxConfig]="input"
-                    [control]="genericForm.get(input.name) | formControl"></app-checkbox>
+                <app-checkbox [input]="input" [control]="control"></app-checkbox>
                 }
                 }
             </div>

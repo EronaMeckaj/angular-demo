@@ -21,6 +21,6 @@ import { IFormField } from '../../models/i-form-field.interface';
   styleUrl: './date-range.component.scss',
 })
 export class DateRangeComponent {
-  @Input() dateRangeConfig!: IFormField;
+  @Input() input!: IFormField;
   @Input() control: FormGroup = new FormGroup({});
 }
