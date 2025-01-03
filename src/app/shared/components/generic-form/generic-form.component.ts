@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -21,12 +16,13 @@ import { ControlType } from '../../enums/control-type.enum';
 import { FormControlPipe } from '../../pipes/form-control.pipe';
 import { SelectComponent } from '../select/select.component';
 import { IFormField } from '../../models/i-form-field.interface';
-import { DateRangeComponent } from "../date-range/date-range.component";
+import { DateRangeComponent } from '../date-range/date-range.component';
 import { FormGroupPipe } from '../../pipes/form-group.pipe';
 import { DatePickerComponent } from '../datepicker/datepicker.component';
-import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { AutocompleteMultiselectComponent } from '../autocomplete-multiselect/autocomplete-multiselect.component';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { TextAreaComponent } from '../text-area/text-area.component';
 
 @Component({
   selector: 'app-generic-form',
@@ -46,7 +42,8 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
     DatePickerComponent,
     AutocompleteComponent,
     AutocompleteMultiselectComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    TextAreaComponent,
   ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
@@ -60,7 +57,6 @@ export class GenericFormComponent implements OnInit {
   @Input() showSubmitButton: boolean = true;
   @Input() cancelButtonText: string = 'Cancel';
   @Input() submitButtonText: string = 'Save';
-
 
   genericForm!: FormGroup;
   controlType: typeof ControlType = ControlType;
@@ -90,7 +86,10 @@ export class GenericFormComponent implements OnInit {
 
   private createFormControl(input: any): FormControl {
     let initialValue: any;
-    if ((input.controlType === this.controlType.select && input.multiselect) || input.controlType === this.controlType.autocompleteMultiselect) {
+    if (
+      (input.controlType === this.controlType.select && input.multiselect) ||
+      input.controlType === this.controlType.autocompleteMultiselect
+    ) {
       initialValue = this.editData?.[input.name] || input.value || [];
       if (!Array.isArray(initialValue)) {
         initialValue = [initialValue];
@@ -102,14 +101,15 @@ export class GenericFormComponent implements OnInit {
   }
 
   private createFormGroupForDateRange(input: any): FormGroup {
-    const startDate = this.editData?.[input.name]?.startDate || input.value?.startDate || null;
-    const endDate = this.editData?.[input.name]?.endDate || input.value?.endDate || null;
+    const startDate =
+      this.editData?.[input.name]?.startDate || input.value?.startDate || null;
+    const endDate =
+      this.editData?.[input.name]?.endDate || input.value?.endDate || null;
 
     return this.#formBuilder.group({
       [input.startControlName]: [startDate],
       [input.endControlName]: [endDate],
     });
-
   }
 
   getFormData() {
@@ -120,7 +120,7 @@ export class GenericFormComponent implements OnInit {
     if (!this.genericForm.valid) {
       this.genericForm.markAllAsTouched();
     } else {
-      console.log(this.genericForm.value, "this.genericForm.value")
+      console.log(this.genericForm.value, 'this.genericForm.value');
     }
   }
 }

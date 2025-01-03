@@ -13,6 +13,7 @@ import { FormDialogComponent } from '../shared/components/form-dialog/form-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { IDialogData } from '../shared/models/i-dialog-data.interface';
 import { InformationDialogComponent } from '../shared/components/information-dialog/information-dialog.component';
+import { GenericFormComponent } from '../shared/components/generic-form/generic-form.component';
 
 @Component({
   selector: 'app-home',
@@ -23,13 +24,14 @@ import { InformationDialogComponent } from '../shared/components/information-dia
     MatButtonModule,
     MatCardModule,
     MatListModule,
+    GenericFormComponent,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  readonly #authService = inject(AuthService)
-  readonly #dialog = inject(MatDialog)
+  readonly #authService = inject(AuthService);
+  readonly #dialog = inject(MatDialog);
 
   filtersConfig: IFormField[] = [
     {
@@ -72,7 +74,15 @@ export class HomeComponent {
       name: 'datasetName',
       controlType: ControlType.text,
       enableSuffixIcon: true,
-      suffixIcon: "search",
+      suffixIcon: 'search',
+      label: 'Name',
+      appearance: 'fill',
+    },
+    {
+      name: 'textArea',
+      controlType: ControlType.textArea,
+      enableSuffixIcon: true,
+      suffixIcon: 'search',
       label: 'Name',
       appearance: 'fill',
     },
@@ -113,25 +123,28 @@ export class HomeComponent {
     test: 'steak-0',
     roleIds: [
       { value: 1, label: 'Admin' },
-      { value: 2, label: 'Editor' }
+      { value: 2, label: 'Editor' },
     ],
     date1: new Date('2023-12-01'),
-    date: { startDate: new Date('2023-12-01'), endDate: new Date('2023-12-10') },
+    date: {
+      startDate: new Date('2023-12-01'),
+      endDate: new Date('2023-12-10'),
+    },
     datasetName: 'Dataset Example',
     databaseId: ['steak-0', 'pizza-1', 'tacos-2'],
     chartType: 'juice-1',
-    checkboxTest: true
+    checkboxTest: true,
+    textArea: 'sgdygeryhdrthuty',
   };
 
-
   logout(): void {
-    this.#authService.logout()
+    this.#authService.logout();
   }
 
   openDialog(): void {
     const dialogData: IDialogData = {
       title: 'Filter Settings',
-      message: "Are you sure you want to delete this?"
+      message: 'Are you sure you want to delete this?',
     };
 
     const dialogRef = this.#dialog.open(InformationDialogComponent, {
