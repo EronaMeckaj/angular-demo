@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  ErrorHandler,
   importProvidersFrom,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -16,6 +17,7 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { httpInterceptor } from './core/interceptors/http.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { httpErrorInterceptor } from './core/interceptors/http-error.interceptor';
 
 export function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -23,7 +25,9 @@ export function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([httpInterceptor])),
+    provideHttpClient(
+      withInterceptors([httpInterceptor, httpErrorInterceptor])
+    ),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
