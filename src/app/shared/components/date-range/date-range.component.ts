@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IFormField } from '../../models/i-form-field.interface';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-date-range',
@@ -15,25 +16,26 @@ import { IFormField } from '../../models/i-form-field.interface';
     MatInputModule,
     MatDatepickerModule,
     MatButtonModule,
+    TranslatePipe,
   ],
   providers: [provideNativeDateAdapter()],
   template: `
     <mat-form-field [class]="input.inputClass" class="w-100">
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <mat-date-range-input [rangePicker]="rangePicker" [formGroup]="control">
         <input
           matStartDate
-          [placeholder]="input.startDatePlaceholder"
+          [placeholder]="input.startDatePlaceholder ?? '' | translate"
           [formControlName]="input.startControlName!"
         />
         <input
           matEndDate
-          [placeholder]="input.endDatePlaceholder"
+          [placeholder]="input.endDatePlaceholder ?? '' | translate"
           [formControlName]="input.endControlName!"
         />
       </mat-date-range-input>
       @if (input.hint) {
-      <mat-hint>{{ input.hint }}</mat-hint>
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
       }
       <mat-datepicker-toggle
         matIconSuffix

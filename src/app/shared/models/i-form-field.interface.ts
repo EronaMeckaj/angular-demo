@@ -6,7 +6,7 @@ import { IOption } from './i-option.interface';
 export interface IFormField {
   key?: string;
   id?: string;
-  label?: string;
+  label: string;
   value?: any;
   name: string;
   placeholder?: string;

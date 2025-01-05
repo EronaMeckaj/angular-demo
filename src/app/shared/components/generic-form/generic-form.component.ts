@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { TextComponent } from '../text/text.component';
 import { ControlType } from '../../enums/control-type.enum';
 import { FormControlPipe } from '../../pipes/form-control.pipe';
@@ -46,6 +46,7 @@ import { NumberComponent } from '../number/number.component';
     CheckboxComponent,
     TextAreaComponent,
     NumberComponent,
+    TranslatePipe,
   ],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
@@ -57,8 +58,8 @@ export class GenericFormComponent implements OnInit {
   @Input() showButtons: boolean = true;
   @Input() showCancelButton: boolean = true;
   @Input() showSubmitButton: boolean = true;
-  @Input() cancelButtonText: string = 'Cancel';
-  @Input() submitButtonText: string = 'Save';
+  @Input() cancelButtonText: string = 'GENERAL.cancel';
+  @Input() submitButtonText: string = 'GENERAL.submit';
 
   genericForm!: FormGroup;
   controlType: typeof ControlType = ControlType;
@@ -108,12 +109,10 @@ export class GenericFormComponent implements OnInit {
     const endDate =
       this.editData?.[input.name]?.endDate || input.value?.endDate || null;
 
-    return this.#formBuilder.group(
-      {
-        [input.startControlName]: [startDate, input.startDateValidators || []],
-        [input.endControlName]: [endDate, input.endDateValidators || []],
-      }
-    );
+    return this.#formBuilder.group({
+      [input.startControlName]: [startDate, input.startDateValidators || []],
+      [input.endControlName]: [endDate, input.endDateValidators || []],
+    });
   }
 
   getFormData() {

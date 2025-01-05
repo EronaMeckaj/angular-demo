@@ -16,6 +16,8 @@
         "password_complexity": "Password must be at least 8 characters long, include an uppercase letter, a number, and a special character!"
     },
     "GENERAL": {
-        "is_required": " is required"
+        "is_required": " is required",
+        "submit": "Submit",
+        "cancel": "Cancel"
     }
 }

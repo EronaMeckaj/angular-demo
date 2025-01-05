@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { IFormField } from '../../models/i-form-field.interface';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-datepicker',
@@ -15,14 +16,15 @@ import { GenericService } from '../../services/generic.service';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    TranslatePipe
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass" class="w-100">
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <input matInput [matDatepicker]="picker" [formControl]="control" />
       @if(input.hint){
-      <mat-hint>{{ input.hint }}</mat-hint>
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
       }
       <mat-datepicker-toggle
         matIconSuffix

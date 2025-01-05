@@ -18,6 +18,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AsyncPipe } from '@angular/common';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-autocomplete-multiselect',
@@ -32,23 +33,24 @@ import { GenericService } from '../../services/generic.service';
     MatIconModule,
     MatOptionModule,
     MatCheckboxModule,
+    TranslatePipe,
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass" class="w-100">
-      <mat-label>{{ input.label }}</mat-label>
-      <mat-chip-grid #chipGrid aria-label="Selection">
+      <mat-label>{{ input.label | translate }}</mat-label>
+      <mat-chip-grid #chipGrid>
         @for (selectedOption of selectedOptions; track selectedOption) {
         <mat-chip-row (removed)="remove(selectedOption)">
           {{ selectedOption.label }}
-          <button matChipRemove [attr.aria-label]="'remove ' + selectedOption">
+          <button matChipRemove>
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
         }
       </mat-chip-grid>
       <input
-        [placeholder]="input.placeholder || ''"
+        [placeholder]="input.placeholder ?? '' | translate"
         [formControl]="control"
         [matChipInputFor]="chipGrid"
         [matAutocomplete]="auto"
@@ -66,6 +68,9 @@ import { GenericService } from '../../services/generic.service';
         }}</mat-option>
         }
       </mat-autocomplete>
+      @if(input.hint){
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
+      } 
       @if(errorMessage){
       <mat-error>{{ errorMessage }}</mat-error>
       }

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { IFormField } from '../../models/i-form-field.interface';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-text-area',
@@ -15,14 +16,15 @@ import { GenericService } from '../../services/generic.service';
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
+    TranslatePipe,
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass" class="w-100">
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <textarea
         matInput
-        [placeholder]="input.label || ''"
+        [placeholder]="input.placeholder ?? '' | translate"
         [formControl]="control"
         [name]="input.name"
         type="text"

@@ -16,6 +16,8 @@
         "password_complexity": "Fjalëkalimi duhet të ketë të paktën 8 karaktere, të përmbajë një shkronjë të madhe, një numër dhe një karakter të veçantë!"
     },
     "GENERAL": {
-        "is_required": " është i/e kërkuar"
+        "is_required": " është i/e kërkuar",
+        "submit": "Ruaj",
+        "cancel": "Anullo"
     }
 }

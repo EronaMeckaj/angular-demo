@@ -7,6 +7,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { GenericFormComponent } from '../generic-form/generic-form.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-form-dialog',
@@ -15,9 +16,10 @@ import { GenericFormComponent } from '../generic-form/generic-form.component';
     MatButtonModule,
     MatIconModule,
     GenericFormComponent,
+    TranslatePipe,
   ],
   template: `
-    <h2 mat-dialog-title>{{ dialogData.title }}</h2>
+    <h2 mat-dialog-title>{{ dialogData.title | translate }}</h2>
     <mat-dialog-content class="mat-typography">
       <app-generic-form
         [dataSource]="dialogData.formModel"
@@ -27,8 +29,12 @@ import { GenericFormComponent } from '../generic-form/generic-form.component';
     </mat-dialog-content>
     @if(!dialogData.showFormButtons){
     <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button (click)="onSubmit()">Save</button>
+      <button mat-button mat-dialog-close>
+        {{ dialogData.cancelButtonText ?? 'GENERAL.cancel' | translate }}
+      </button>
+      <button mat-button (click)="onSubmit()">
+        {{ dialogData.submitButtonText ?? 'GENERAL.submit' | translate }}
+      </button>
     </mat-dialog-actions>
     }
   `,

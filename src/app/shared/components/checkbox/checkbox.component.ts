@@ -4,18 +4,25 @@ import { IFormField } from '../../models/i-form-field.interface';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-checkbox',
-  imports: [MatCheckboxModule, MatFormFieldModule, ReactiveFormsModule],
+  imports: [
+    MatCheckboxModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    TranslatePipe,
+  ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-checkbox [class]="input.inputClass" [formControl]="control">
-      {{ input.label }}</mat-checkbox
+      {{ input.label | translate }}</mat-checkbox
     >
     @if (input.hint) {
-    <mat-hint>{{ input.hint }}</mat-hint>
-    } @if(errorMessage){
+    <mat-hint>{{ input.hint | translate }}</mat-hint>
+    } 
+    @if(errorMessage){
     <mat-error>{{ errorMessage }}</mat-error>
     }
   `,

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { IFormField } from '../../models/i-form-field.interface';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-text',
@@ -15,6 +16,7 @@ import { GenericService } from '../../services/generic.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    TranslatePipe,
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
@@ -23,17 +25,17 @@ import { GenericService } from '../../services/generic.service';
       [class]="input.inputClass"
       class="w-100"
     >
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <input
         matInput
-        [placeholder]="input.label || ''"
+        [placeholder]="input.placeholder ?? '' | translate"
         [formControl]="control"
         [name]="input.name"
         type="text"
         [readonly]="input.readonly"
       />
       @if (input.hint) {
-      <mat-hint>{{ input.hint }}</mat-hint>
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
       } @if(input.enableSuffixIcon && !control.value){
       <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
       } @if(!input.readonly && control.value){

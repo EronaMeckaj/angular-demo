@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-number',
@@ -15,11 +16,12 @@ import { GenericService } from '../../services/generic.service';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    TranslatePipe,
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
     <mat-form-field [class]="input.inputClass">
-      <mat-label> {{ input.label }} </mat-label>
+      <mat-label> {{ input.label | translate }} </mat-label>
       <input
         matInput
         type="number"
@@ -31,7 +33,7 @@ import { GenericService } from '../../services/generic.service';
       @if (input.enableSuffixIcon && !control.value) {
       <mat-icon matSuffix>{{ input.suffixIcon }}</mat-icon>
       } @if (input.hint) {
-      <mat-hint>{{ input.hint }}</mat-hint>
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
       } @if (!input.readonly && control.value) {
       <mat-icon matSuffix (click)="clearInput()">close</mat-icon>
       } @if(errorMessage){

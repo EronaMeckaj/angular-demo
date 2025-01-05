@@ -9,6 +9,7 @@ import { map, startWith, shareReplay, take } from 'rxjs/operators';
 import { IOption } from '../../models/i-option.interface';
 import { IFormField } from '../../models/i-form-field.interface';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select',
@@ -18,6 +19,7 @@ import { GenericService } from '../../services/generic.service';
     MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
+    TranslatePipe,
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
@@ -26,7 +28,7 @@ import { GenericService } from '../../services/generic.service';
       [class]="input.inputClass"
       class="w-100"
     >
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <mat-select [formControl]="control" [multiple]="input.multiselect">
         @if(input.selectAll && input.multiselect){
         <mat-checkbox
@@ -42,7 +44,7 @@ import { GenericService } from '../../services/generic.service';
         }
       </mat-select>
       @if (input.hint) {
-      <mat-hint>{{ input.hint }}</mat-hint>
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
       } @if(errorMessage){
       <mat-error>{{ errorMessage }}</mat-error>
       }

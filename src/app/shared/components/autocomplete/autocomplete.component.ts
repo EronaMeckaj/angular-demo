@@ -17,6 +17,7 @@ import { IOption } from '../../models/i-option.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { GenericService } from '../../services/generic.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-autocomplete',
@@ -29,6 +30,7 @@ import { GenericService } from '../../services/generic.service';
     AsyncPipe,
     MatIconModule,
     MatButtonModule,
+    TranslatePipe,
   ],
   template: `
     @let errorMessage = genericService.getErrorMessage(control, input);
@@ -37,11 +39,10 @@ import { GenericService } from '../../services/generic.service';
       [class]="input.inputClass"
       class="w-100"
     >
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <input
         type="text"
-        [placeholder]="input.placeholder!"
-        [attr.aria-label]="input.label"
+        [placeholder]="input.placeholder ?? '' | translate"
         matInput
         [formControl]="control"
         [matAutocomplete]="auto"
@@ -62,7 +63,7 @@ import { GenericService } from '../../services/generic.service';
         }
       </mat-autocomplete>
       @if (input.hint) {
-      <mat-hint>{{ input.hint }}</mat-hint>
+      <mat-hint>{{ input.hint | translate }}</mat-hint>
       } @if(errorMessage){
       <mat-error>{{ errorMessage }}</mat-error>
       }
